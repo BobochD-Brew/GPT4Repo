@@ -7,7 +7,7 @@ gitignore_file = ".gitignore"
 debug = False
 debug_folder = "debug_output"
 load_dotenv()
-api_key = os.getenv('API_KEY')
+openai.api_key = os.getenv('API_KEY')
 other_ignore = ["gptWorker.py","README.md"]
 
 def is_text_file(file_path):
@@ -83,7 +83,6 @@ def main():
         }
     ]
 
-    openai.api_key = os.environ["OPENAI_API_KEY"]
     response = openai.ChatCompletion.create(
         model="gpt-4",
         messages=gptObject
