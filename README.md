@@ -1,6 +1,6 @@
 # GPT4Repo
 
-GPT4Repo is a simple script that packs all text files in the current folder into a single GPT-4 query and replace them with the result. This script follows the .gitignore rules, also make sure you keep the name gptWorker.py. Please note that this script assumes that your codebase is smaller than GPT-4's 8k context length (it may work with GPT-3 if you have extra-small codes).
+GPT4Repo is a simple script that packs all files in the a folder into a single GPT-4 query with a task and replace them with the result. This script follows the .gitignore rules, also make sure you keep the name gptWorker.py. Please note that this script assumes that your codebase is smaller than GPT-4's 8k context length (it may work with GPT-3 if you have extra-small codes).
 
 ## How to use
 
