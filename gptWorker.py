@@ -4,8 +4,6 @@ from pathspec import PathSpec
 from pathspec.patterns import GitWildMatchPattern
 
 gitignore_file = ".gitignore"
-debug = False
-debug_folder = "debug_output"
 load_dotenv()
 openai.api_key = os.getenv('API_KEY')
 other_ignore = ["gptWorker.py","README.md"]
@@ -78,7 +76,7 @@ def main():
                 "::: Filepath: <filepath> :::"+"\n"+
                 "<file_content>"+"\n"+
                 ""+"\n"+
-                "Do not include any additional explanations or comments, as the output will be parsed directly."+"\n"
+                "Do not include any additional explanations or comments you should use a file instructions.txt for this, as the output will be parsed directly."+"\n"
             )
         }
     ]
@@ -90,24 +88,18 @@ def main():
 
     gpt4_output = response["choices"][0]["message"]["content"]
 
-    if debug and not os.path.exists(debug_folder): os.makedirs(debug_folder)
     file_pattern = re.compile(r"::: Filename: (.*?) :::\n::: Filepath: (\..*?/) :::\n(.*?)(?=\n\n::: Filename:|\Z)", re.DOTALL)
     changed_files = file_pattern.findall(gpt4_output)
-
     for file in changed_files:
         filename, relative_dir, file_content = file
         filepath = os.path.join(os.getcwd(), relative_dir[2:], filename)
-        if debug:
-            debug_filepath = os.path.join(debug_folder, filepath)
-            debug_file_dir = os.path.dirname(debug_filepath)
-            if not os.path.exists(debug_file_dir):
-                os.makedirs(debug_file_dir)
-            with open(debug_filepath, "w") as f:
-                f.write(file_content)
-        else:
-            with open(filepath, "w") as f:
-                f.write(file_content)
-
+        os.makedirs(os.path.dirname(filepath), exist_ok=True)
+        with open(filepath, "w") as f:
+            f.write(file_content)
+    if len(changed_files) == 0:
+        print(gpt4_output)
+    if "instructions.txt" in gpt4_output:
+        print("Please read the instructions.txt file for additional information.")
     print(f"{len(changed_files)} files updated.")
 
 if __name__ == "__main__":
