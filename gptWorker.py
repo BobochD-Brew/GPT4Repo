@@ -54,7 +54,7 @@ def main():
                 "The header format is as follows:\n"+
                 "\n"+
                 "::: Filename: <filename> :::\n"+
-                "::: Filepath: <filepath> :::\n"+
+                "::: Filepath: <filepath_without_name> :::\n"+
                 "\n"+
                 "Non-text files are included as headers only, without content.\n"+
                 "\n"+
@@ -73,7 +73,7 @@ def main():
                 "you can create new files by using a new name and path, Once you have made the necessary changes, please provide the updated codebase by listing the changed files with their respective headers and content, in the same format as the input:"+"\n"+
                 ""+"\n"+
                 "::: Filename: <filename> :::"+"\n"+
-                "::: Filepath: <filepath> :::"+"\n"+
+                "::: Filepath: <filepath_without_name> :::"+"\n"+
                 "<file_content>"+"\n"+
                 ""+"\n"+
                 "Do not include any additional explanations or comments you should use a file instructions.txt for this, as the output will be parsed directly."+"\n"
@@ -95,7 +95,7 @@ def main():
         filepath = os.path.join(os.getcwd(), relative_dir[2:], filename)
         os.makedirs(os.path.dirname(filepath), exist_ok=True)
         with open(filepath, "w") as f:
-            f.write(file_content)
+            f.write("\n".join([k for k in file_content.split("\n") if k[:3] != "```"]))
     if len(changed_files) == 0:
         print(gpt4_output)
     if "instructions.txt" in gpt4_output:
