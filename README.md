@@ -14,5 +14,3 @@ The script will prompt you to enter a task on the codebase. Once the task is don
 
 ![image](https://user-images.githubusercontent.com/49965312/236678457-84787929-5b22-4044-a662-8841ad09b036.png)
 ![image](https://user-images.githubusercontent.com/49965312/236678460-e1e0cee5-c1e5-4f52-8e51-d250a41bcd6c.png)
-
-If you encounter any issues or have any feedback, please don't hesitate to open an issue on our GitHub repository.
