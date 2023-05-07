@@ -23,7 +23,7 @@ def process_folder(folder_path, gitignore_rules):
     return_text = ""
     for root, dirs, files in os.walk(folder_path):
         for file in files:
-            if file == "gptWorker.py": continue
+            if file in other_ignore: continue
             file_path = os.path.join(root, file)
             relative_path = os.path.relpath(file_path, start=folder_path)
             relative_dir = os.path.dirname(relative_path)
